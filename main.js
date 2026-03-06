@@ -7,56 +7,106 @@
     } else {
         return("scissors")
     }}
-
-    function getHumanChoice(){
-    let input = prompt("Rock, Paper, Scissors","Shoot!");
-    let humanChoice = input.toLowerCase();
-    return(humanChoice);
-    }
     
-    let humanScore = 0;
-    let computerScore = 0;
+    let rockBttn = document.querySelector(".rock-bttn")
+    let paperBttn = document.querySelector(".paper-bttn")
+    let scissorBttn = document.querySelector(".scissors-bttn")
+    let button = document.querySelector("button")
+    let humanScore = document.querySelector(".my-score")
+    let computerScore = document.querySelector(".computer-score")
+    let myChoiceImg = document.querySelector(".my-choice-img")
+    let compChoiceImg = document.querySelector(".computer-choice-img")
+    let firstFive = document.querySelector(".first-five")
+    let roundStatus = document.querySelector(".status")
+
+    let humanChoice = ""
+
+    rockBttn.addEventListener("click", (e) => {
+        humanChoice = "rock"
+    })
+    rockBttn.addEventListener("click", getComputerChoice)
+    rockBttn.addEventListener("click", playRound)
+    rockBttn.addEventListener("click", checkScore)
+
+    paperBttn.addEventListener("click", (e) => {
+        humanChoice = "paper"
+    })
+    paperBttn.addEventListener("click", getComputerChoice)
+    paperBttn.addEventListener("click", playRound)
+    paperBttn.addEventListener("click", checkScore)
+
+    scissorBttn.addEventListener("click", (e) => {
+        humanChoice = "scissors"
+    })
+    scissorBttn.addEventListener("click", getComputerChoice)
+    scissorBttn.addEventListener("click", playRound)
+    scissorBttn.addEventListener("click", checkScore)
+    
+    humanScore.textContent = 0
+    computerScore.textContent = 0;
 
     function playRound(myChoice, compChoice){
-    myChoice = getHumanChoice();
+    myChoice = humanChoice;
     compChoice = getComputerChoice();
 
     if (myChoice === "rock" && compChoice === "scissors") {
-        humanScore++
-        return(`You win this round! Rock beats scissors! You have ${humanScore} wins and ${computerScore} losses.`)
+        humanScore.textContent++
+        myChoiceImg.src = "images/rock.png"
+        compChoiceImg.src = "images/scissors.png"
+        roundStatus.textContent = "--"
     } else if (myChoice == "scissors" && compChoice === "paper") {
-        humanScore++
-        return(`You win this round! Scissors beats paper! You have ${humanScore} wins and ${computerScore} losses.`)
+        humanScore.textContent++
+        myChoiceImg.src = "images/scissors.png"
+        compChoiceImg.src = "images/paper.png"
+        roundStatus.textContent = "--"
     } else if (myChoice === "paper" && compChoice == "rock") {
-        humanScore++
-        return(`You win this round! Paper beats rock! You have ${humanScore} wins and ${computerScore} losses.`)
+        humanScore.textContent++
+        myChoiceImg.src = "images/paper.png"
+        compChoiceImg.src = "images/rock.png"
+        roundStatus.textContent = "--"
     } else if (myChoice === "rock" && compChoice === "paper"){
-        computerScore++
-        return(`You lose this round! Paper beats rock! you have ${humanScore} wins and ${computerScore} losses.`)
+        computerScore.textContent++
+        myChoiceImg.src = "images/rock.png"
+        compChoiceImg.src = "images/paper.png"
+        roundStatus.textContent = "--"
     } else if (myChoice === "paper" && compChoice === "scissors"){
-        computerScore++
-        return(`You lose this round! Scissors beats paper! you have ${humanScore} wins and ${computerScore} losses.`)
+        computerScore.textContent++
+        myChoiceImg.src = "images/paper.png"
+        compChoiceImg.src = "images/scissors.png"
+        roundStatus.textContent = "--"
     } else if (myChoice === "scissors" && compChoice === "rock"){
-        computerScore++
-        return(`You lose this round! Rock beats scissors! you have ${humanScore} wins and ${computerScore} losses.`)
-    } else {
-        return(`Draw! the score remains ${humanScore} to ${computerScore}.`)
-    }
-    }
+        computerScore.textContent++
+        myChoiceImg.src = "images/scissors.png"
+        compChoiceImg.src = "images/rock.png"
+        roundStatus.textContent = "--"
+    } else if (myChoice === "rock" && compChoice === "rock"){
+        roundStatus.textContent = "Draw!"
+        myChoiceImg.src = "images/rock.png"
+        compChoiceImg.src = "images/rock.png"
+    } else if (myChoice === "paper" && compChoice === "paper"){
+        roundStatus.textContent = "Draw!"
+        myChoiceImg.src = "images/paper.png"
+        compChoiceImg.src = "images/paper.png"
+    } else if(myChoice === "scissors" && compChoice === "paper"){
+        roundStatus.textContent = "Draw!"
+        myChoiceImg.src = "images/scissors.png"
+        compChoiceImg.src = "images/scissors.png"
+    }}
 
-function playGame(){
-    console.log(playRound())
-    console.log(playRound())
-    console.log(playRound())
-    console.log(playRound())
-    console.log(playRound())
-    if (humanScore > computerScore) {
-        return("You win! Refresh the page to play again!")
-    } else if (humanScore < computerScore) {
-        return("You lose! Refresh the page to try again!")
-    } else {
-        return("It's a tie! refresh the page to play again!")
-    }
+function checkScore (){
+    if (Number(humanScore.textContent) === 5) {
+        roundStatus.textContent = "You win! Refresh to play again"
 
-}
-console.log(playGame())
+        rockBttn.disabled = true;
+        paperBttn.disabled = true;
+        scissorBttn.disabled = true;
+    } else if (Number(computerScore.textContent) === 5){
+    roundStatus.textContent = "You lose! Refresh to play again"
+
+        rockBttn.disabled = true;
+        paperBttn.disabled = true;
+        scissorBttn.disabled = true;
+} else {
+    
+}}
+

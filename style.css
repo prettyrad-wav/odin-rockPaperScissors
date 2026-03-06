@@ -76,3 +76,13 @@ button {
     bottom: 0;
     font-family: shoot;
 }
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status {
+    text-align: center;
+}
